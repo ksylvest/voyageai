@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.email = ["kevin@ksylvest.com"]
 
   spec.summary = "A client for voyageai.com."
-  spec.description = "A library for generating embeddings with https://voyageai.com."
-  spec.homepage = "https://github.com/ksylvest/voyageai."
+  spec.description = "A library for generating embeddings with https://voyageai.com"
+  spec.homepage = "https://github.com/ksylvest/voyageai"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.3.0"
 
