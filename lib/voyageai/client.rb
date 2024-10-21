@@ -29,7 +29,7 @@ module VoyageAI
     end
 
     # @param model [String] optional (e.g. VoyageAI::Model::VOYAGE or "voyage-3")
-    # @param input [Array<String>] required (e.g. ["Sample 1", "Sample 2", ...])
+    # @param input [String, Array<String>] required (e.g. "Sample" or ["Sample 1", "Sample 2", ...])
     #
     # @return [Embedding]
     def embed(input, model: Model::VOYAGE)
