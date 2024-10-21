@@ -10,6 +10,23 @@ gem install voyageai
 
 ## Usage
 
+### Generating Single Embedding
+
+```ruby
+require 'voyageai'
+
+input = 'A quick brown fox jumps over the lazy dog.'
+
+voyageai = VoyageAI::Client.new(api_key: 'pa-...') # or configure ENV['VOYAGEAI_API_KEY']
+
+embed = voyageai.emed(input)
+embed.model # "..."
+embed.usage # "#<VoyageAI::Usage total_tokens=...>"
+embed.embedding # [0.0, ...]
+```
+
+### Generating Multiple Embeddings
+
 ```ruby
 require 'voyageai'
 
@@ -22,10 +39,8 @@ input = [
 
 voyageai = VoyageAI::Client.new(api_key: 'pa-...') # or configure ENV['VOYAGEAI_API_KEY']
 
-result = voyageai.embed(input)
+embed = voyageai.embed(input)
 embed.model # "..."
 embed.usage # "#<VoyageAI::Usage total_tokens=...>"
-embed.embeddings.each do |embedding|
-  embedding.index # "#<VoyageAI::Embedding index=... embedding=...>
-end
+embed.embeddings # [[0.0, ...], ...]
 ```

@@ -6,6 +6,6 @@ FactoryBot.define do
 
     model { VoyageAI::Model::VOYAGE }
     usage
-    embeddings { [] }
+    embeddings { [[0.0]] }
   end
 end
