@@ -15,7 +15,7 @@ module VoyageAI
     attr_accessor :usage
 
     # @!attribute [rw] embeddings
-    #   @return [Array<Embedding>]
+    #   @return [Array<Array<Float>>]
     attr_accessor :embeddings
 
     # @param data [Hash]
@@ -23,9 +23,7 @@ module VoyageAI
     def self.parse(data:)
       model = data["model"]
       usage = Usage.parse(data: data["usage"])
-      embeddings = data["data"].map do |embedding_data|
-        Embedding.parse(data: embedding_data)
-      end
+      embeddings = data["data"].map { |embedding_data| embedding_data["embedding"] }
 
       Embed.new(model: model, usage: usage, embeddings: embeddings)
     end
@@ -42,6 +40,13 @@ module VoyageAI
     # @return [String]
     def inspect
       "#<#{self.class.name} model=#{@model.inspect} embeddings=#{@embeddings.inspect} usage=#{@usage.inspect}>"
+    end
+
+    # @param index [Integer] optional
+    #
+    # @return [Array<Float>]
+    def embedding(index: 0)
+      @embeddings[index]
     end
   end
 end

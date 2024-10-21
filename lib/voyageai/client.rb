@@ -33,7 +33,7 @@ module VoyageAI
     #
     # @return [Embedding]
     def embed(input, model: Model::VOYAGE)
-      payload = { input: input, model: model }
+      payload = { input: arrayify(input), model: model }
       response = HTTP
         .accept(:json)
         .auth("Bearer #{@api_key}")
@@ -42,6 +42,12 @@ module VoyageAI
       raise RequestError.new(response:) unless response.status.ok?
 
       Embed.parse(data: response.parse)
+    end
+
+    private
+
+    def arrayify(input)
+      input.is_a?(Array) ? input : [input]
     end
   end
 end
