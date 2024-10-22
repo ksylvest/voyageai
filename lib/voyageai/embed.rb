@@ -25,7 +25,7 @@ module VoyageAI
       usage = Usage.parse(data: data["usage"])
       embeddings = data["data"].map { |embedding_data| embedding_data["embedding"] }
 
-      Embed.new(model: model, usage: usage, embeddings: embeddings)
+      new(model: model, usage: usage, embeddings: embeddings)
     end
 
     # @param model [String]
