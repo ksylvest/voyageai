@@ -7,7 +7,7 @@ RSpec.describe VoyageAI::Client do
     let(:client) { build(:client) }
 
     it "returns a string" do
-      expect(inspect).to eql '#<VoyageAI::Client api_key="fake_***">'
+      expect(inspect).to eql '#<VoyageAI::Client api_key="fake_***" host="https://api.voyageai.com" version="v1">'
     end
   end
 
