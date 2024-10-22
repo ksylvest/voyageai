@@ -44,3 +44,17 @@ embed.model # "..."
 embed.usage # "#<VoyageAI::Usage total_tokens=...>"
 embed.embeddings # [[0.0, ...], ...]
 ```
+
+## Configuration
+
+```ruby
+require 'voyageai'
+
+VoyageAI.configure do |config|
+  config.api_key = 'pa-...' # defaults to ENV['VOYAGEAI_API_KEY']
+  config.host = 'https://api.voyageai.com'
+  config.version = 'v1'
+  config.timeout = 15 # seconds
+  config.logger = Logger.new(STDOUT)
+end
+```
