@@ -31,24 +31,33 @@ end
 # @param dst [Array<Float>]
 #
 # @return [Float]
-def euclidean(src, dst)
+def euclidean_distance(src, dst)
   Math.sqrt(src.zip(dst).map { |a, b| (a - b)**2 }.reduce(:+))
 end
 
 # @param query [String]
-def search(query:)
+# @param limit [Integer]
+#
+# @return [Array<String>]
+def nearest_documents(query:, limit: 4)
   embedding = VOYAGEAI.embed(query, input_type: "query").embedding
 
-  results = ENTRIES.sort_by { |entry| euclidean(entry.embedding, embedding) }.first(4)
+  ENTRIES
+    .sort_by { |entry| euclidean_distance(entry.embedding, embedding) }
+    .first(limit)
+    .map(&:document)
+end
 
-  documents = results.map(&:document)
+# @param query [String]
+def search(query:)
+  documents = nearest_documents(query:)
 
   results = VOYAGEAI.rerank(query:, documents:, top_k: 2).results
 
-  puts "query=#{query}"
+  puts "query=#{query.inspect}"
   results.each do |reranking|
     document = documents[reranking.index]
-    puts(" - #{document} (relevance_score=#{reranking.relevance_score})")
+    puts("document=#{document.inspect} relevance_score=#{reranking.relevance_score}")
   end
 end
 
