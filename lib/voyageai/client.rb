@@ -37,12 +37,14 @@ module VoyageAI
       "#<#{self.class.name} api_key=#{masked_api_key.inspect} host=#{@host.inspect} version=#{@version.inspect}>"
     end
 
-    # @param model [String] optional (e.g. VoyageAI::Model::VOYAGE or "voyage-3")
     # @param input [String, Array<String>] required (e.g. "Sample" or ["Sample 1", "Sample 2", ...])
+    # @param model [String] optional (e.g. VoyageAI::Model::VOYAGE or "voyage-3")
+    # @param input_type [Symbol] optional (e.g. :query or :document)
+    # @param truncation [Boolean] optional
     #
     # @return [Embedding]
-    def embed(input, model: Model::VOYAGE)
-      payload = { input: arrayify(input), model: model }
+    def embed(input, model: Model::VOYAGE, input_type: nil, truncation: nil)
+      payload = { input: arrayify(input), model: model, truncation:, input_type: }.compact
       response = http.accept(:json).post("/#{@version}/embeddings", json: payload)
 
       raise RequestError.new(response:) unless response.status.ok?
