@@ -9,11 +9,17 @@ module VoyageAI
     VOYAGE_LAW_2 = "voyage-law-2"
     VOYAGE_CODE_2 = "voyage-code-2"
 
+    RERANK_2 = "rerank-2"
+    RERANK_2_LITE = "rerank-2-lite"
+
     VOYAGE = VOYAGE_3
     VOYAGE_LITE = VOYAGE_3_LITE
     VOYAGE_FINANCE = VOYAGE_FINANCE_2
     VOYAGE_MULTILINGUAL = VOYAGE_MULTILINGUAL_2
     VOYAGE_LAW = VOYAGE_LAW_2
     VOYAGE_CODE = VOYAGE_CODE_2
+
+    RERANK = RERANK_2
+    RERANK_LITE = RERANK_2_LITE
   end
 end

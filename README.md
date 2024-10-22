@@ -10,7 +10,9 @@ gem install voyageai
 
 ## Usage
 
-### Generating Single Embedding
+### Embedding
+
+#### Generating Single Embedding
 
 ```ruby
 require 'voyageai'
@@ -25,7 +27,7 @@ embed.usage # "#<VoyageAI::Usage total_tokens=...>"
 embed.embedding # [0.0, ...]
 ```
 
-### Generating Multiple Embeddings
+#### Generating Multiple Embeddings
 
 ```ruby
 require 'voyageai'
@@ -43,6 +45,28 @@ embed = voyageai.embed(input)
 embed.model # "..."
 embed.usage # "#<VoyageAI::Usage total_tokens=...>"
 embed.embeddings # [[0.0, ...], ...]
+```
+
+### Reranking
+
+```ruby
+require 'voyageai'
+
+query = 'Who is the best person to call for a toilet?'
+
+documents = [
+  'John is a musician.',
+  'Paul is a plumber.',
+  'George is a teacher.',
+  'Ringo is a doctor.',
+]
+
+voyageai = VoyageAI::Client.new(api_key: 'pa-...') # or configure ENV['VOYAGEAI_API_KEY']
+
+rerank = voyageai.rerank(query:, documents:, top_k: 3)
+rerank.model # "..."
+rerank.usage # "#<VoyageAI::Usage total_tokens=...>"
+rerank.results # [#<VoyageAI::Reranking index=0 relevance_score=0.5>]
 ```
 
 ## Configuration

@@ -56,4 +56,53 @@ RSpec.describe VoyageAI::Client do
       it { expect { embed }.to raise_error(VoyageAI::Client::RequestError) }
     end
   end
+
+  describe "#rerank" do
+    subject(:rerank) { client.rerank(query:, documents:, model:) }
+
+    let(:client) { build(:client) }
+    let(:model) { VoyageAI::Model::RERANK }
+    let(:query) { "Welcome!" }
+    let(:documents) { ["Greetings!"] }
+
+    context "when the request works" do
+      before do
+        stub_request(:post, "https://api.voyageai.com/v1/rerank")
+          .with(body: {
+            model:,
+            query:,
+            documents:,
+          })
+          .to_return_json(status: 200, body: {
+            object: "list",
+            data: [
+              {
+                index: 0,
+                relevance_score: 0.5,
+              },
+            ],
+            model:,
+            usage: { "total_tokens" => 0 },
+          })
+      end
+
+      it { is_expected.to be_a(VoyageAI::Rerank) }
+    end
+
+    context "when the request fails" do
+      before do
+        stub_request(:post, "https://api.voyageai.com/v1/rerank")
+          .with(body: {
+            model:,
+            query:,
+            documents:,
+          })
+          .to_return_json(status: 500, body: {
+            error: "An unknown error occurred.",
+          })
+      end
+
+      it { expect { rerank }.to raise_error(VoyageAI::Client::RequestError) }
+    end
+  end
 end

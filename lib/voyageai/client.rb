@@ -50,6 +50,20 @@ module VoyageAI
       Embed.parse(data: response.parse)
     end
 
+    # @param query [String] required
+    # @param documents [Array<String>] required
+    # @param model [String] optional (e.g. VoyageAI::Model::RERANK or "rerank-2")
+    # @param top_k [Integer] optional
+    # @param truncation [Boolean] optional
+    def rerank(query:, documents:, model: Model::RERANK, top_k: nil, truncation: nil)
+      payload = { query:, documents:, model:, top_k:, truncation: }.compact
+      response = http.accept(:json).post("/#{@version}/rerank", json: payload)
+
+      raise RequestError.new(response:) unless response.status.ok?
+
+      Rerank.parse(data: response.parse)
+    end
+
     private
 
     # @return [HTTP::Client]
