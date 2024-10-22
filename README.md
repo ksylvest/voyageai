@@ -83,7 +83,7 @@ VoyageAI.configure do |config|
 end
 ```
 
-## Example
+## Examples
 
 ```ruby
 require "voyageai"
@@ -115,24 +115,33 @@ end
 # @param dst [Array<Float>]
 #
 # @return [Float]
-def euclidean(src, dst)
+def euclidean_distance(src, dst)
   Math.sqrt(src.zip(dst).map { |a, b| (a - b)**2 }.reduce(:+))
 end
 
 # @param query [String]
-def search(query:)
+# @param limit [Integer]
+#
+# @return [Array<String>]
+def nearest_documents(query:, limit: 4)
   embedding = VOYAGEAI.embed(query, input_type: "query").embedding
 
-  results = ENTRIES.sort_by { |entry| euclidean(entry.embedding, embedding) }.limit(5)
+  ENTRIES
+    .sort_by { |entry| euclidean_distance(entry.embedding, embedding) }
+    .first(limit)
+    .map(&:document)
+end
 
-  documents = results.map(&:document)
+# @param query [String]
+def search(query:)
+  documents = nearest_documents(query:)
 
   results = VOYAGEAI.rerank(query:, documents:, top_k: 2).results
 
-  puts "query=#{query}"
+  puts "query=#{query.inspect}"
   results.each do |reranking|
     document = documents[reranking.index]
-    puts("#{document.inspect} (#{reranking.relevance_score})")
+    puts("document=#{document.inspect} relevance_score=#{reranking.relevance_score}")
   end
 end
 
@@ -141,11 +150,13 @@ search(query: "Who works in the medical field?")
 ```
 
 ```
-query=What do George and Ringo do?
-"Ringo is a doctor." (relevance_score=0.6796875)
-"George is a teacher." (relevance_score=0.5859375)
+query="What do George and Ringo do?"
+document="Ringo is a doctor." relevance_score=0.67968755
+document="George is a teacher." relevance_score=0.58593755
+```
 
-query=Who works in the medical field?
-"Bill is a nurse." (relevance_score=0.55078125)
-"Ringo is a doctor" (relevance_score=0.50390625)
+```
+query="Who works in the medical field?"
+document="Bill is a nurse." relevance_score=0.55078125
+document="Ringo is a doctor." relevance_score=0.50390625
 ```
