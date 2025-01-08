@@ -3,6 +3,7 @@
 module VoyageAI
   module Model
     VOYAGE_3 = "voyage-3"
+    VOYAGE_3_LARGE = "voyage-3-large"
     VOYAGE_3_LITE = "voyage-3-lite"
     VOYAGE_FINANCE_2 = "voyage-finance-2"
     VOYAGE_MULTILINGUAL_2 = "age-multilingual-2"
