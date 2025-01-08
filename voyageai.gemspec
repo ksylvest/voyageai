@@ -14,9 +14,11 @@ Gem::Specification.new do |spec|
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.3.0"
 
-  spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["changelog_uri"] = "#{spec.homepage}/releases"
   spec.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/ksylvest/voyageai/tree/v#{VoyageAI::VERSION}"
+  spec.metadata["changelog_uri"] = "https://github.com/ksylvest/voyageai/releases/tag/v#{VoyageAI::VERSION}"
+  spec.metadata["documentation_uri"] = "https://voyageai.ksylvest.com/"
 
   spec.files = Dir.glob("{bin,lib,exe}/**/*") + %w[README.md Gemfile]
   spec.require_paths = ["lib"]

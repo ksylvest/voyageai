@@ -1,5 +1,11 @@
 # VoyageAI
 
+[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ksylvest/voyageai/blob/main/LICENSE)
+[![RubyGems](https://img.shields.io/gem/v/voyageai)](https://rubygems.org/gems/voyageai)
+[![GitHub](https://img.shields.io/badge/github-repo-blue.svg)](https://github.com/ksylvest/voyageai)
+[![Yard](https://img.shields.io/badge/docs-site-blue.svg)](https://voyageai.ksylvest.com)
+[![CircleCI](https://img.shields.io/circleci/build/github/ksylvest/voyageai)](https://circleci.com/gh/ksylvest/voyageai)
+
 `voyageai` is a ruby client for [VoyageAI](https://www.voyageai.com)
 
 ## Installation
