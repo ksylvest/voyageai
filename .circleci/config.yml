@@ -15,7 +15,7 @@ commands:
           fi
 
 orbs:
-  ruby: circleci/ruby@2.2.1
+  ruby: circleci/ruby@2.5.0
 
 executors:
   default:
