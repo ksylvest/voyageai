@@ -19,8 +19,13 @@ orbs:
 
 executors:
   default:
+    parameters:
+      ruby-version:
+        description: "ruby version tag"
+        default: "3.4.2"
+        type: string
     docker:
-      - image: cimg/ruby:3.4.2
+      - image: cimg/ruby:<<parameters.ruby-version>>
 
 jobs:
   doc:
@@ -30,7 +35,13 @@ jobs:
       - ruby/install-deps
       - run: bundle exec yard doc
   rspec:
-    executor: default
+    parameters:
+      ruby-version:
+        description: "ruby version tag"
+        type: string
+    executor:
+      name: default
+      ruby-version: <<parameters.ruby-version>>
     steps:
       - checkout
       - ruby/install-deps
@@ -54,7 +65,12 @@ workflows:
   build:
     jobs:
       - doc
-      - rspec
+      - rspec:
+          matrix:
+            parameters:
+              ruby-version:
+                - "3.4.2"
+                - "3.3.7"
       - rubocop
       - release:
           filters:
