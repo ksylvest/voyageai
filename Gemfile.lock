@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    voyageai (1.8.0)
+    voyageai (1.9.0)
       http
       zeitwerk
 
