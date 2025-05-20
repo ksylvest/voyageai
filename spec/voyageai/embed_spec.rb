@@ -34,7 +34,7 @@ RSpec.describe VoyageAI::Embed do
     let(:embed) { build(:embed, embeddings: []) }
 
     it "returns a string" do
-      expect(inspect).to eql '#<VoyageAI::Embed model="voyage-3" embeddings=[] usage=#<VoyageAI::Usage total_tokens=0>>'
+      expect(inspect).to eql(%(#<VoyageAI::Embed model="voyage-3.5" embeddings=[] usage=#{embed.usage.inspect}>))
     end
   end
 

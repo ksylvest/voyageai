@@ -2,6 +2,8 @@
 
 module VoyageAI
   module Model
+    VOYAGE_3_5 = "voyage-3.5"
+    VOYAGE_3_5_LITE = "voyage-3.5-lite"
     VOYAGE_3 = "voyage-3"
     VOYAGE_3_LARGE = "voyage-3-large"
     VOYAGE_3_LITE = "voyage-3-lite"
@@ -13,8 +15,8 @@ module VoyageAI
     RERANK_2 = "rerank-2"
     RERANK_2_LITE = "rerank-2-lite"
 
-    VOYAGE = VOYAGE_3
-    VOYAGE_LITE = VOYAGE_3_LITE
+    VOYAGE = VOYAGE_3_5
+    VOYAGE_LITE = VOYAGE_3_5_LITE
     VOYAGE_FINANCE = VOYAGE_FINANCE_2
     VOYAGE_MULTILINGUAL = VOYAGE_MULTILINGUAL_2
     VOYAGE_LAW = VOYAGE_LAW_2
