@@ -14,7 +14,7 @@ module VoyageAI
       end
     end
 
-    # @param api_key [String] optional if ENV['VOYAGEAI_API_KEY'] otherwise required
+    # @param api_key [String] optional if `ENV['VOYAGEAI_API_KEY']` otherwise required
     # @param host [String] optional
     # @param version [String] optional
     # @param logger [Logger] optional
