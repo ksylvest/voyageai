@@ -36,7 +36,7 @@ module VoyageAI
     attr_accessor :timeout
 
     # @param api_key [String] optional - defaults to `ENV['VOYAGE_API_KEY']`
-    # @param host [String] optional - defaults to `ENV['VOYAGEAI_HOST']`` w/ fallback to `https://api.voyageai.com`
+    # @param host [String] optional - defaults to `ENV['VOYAGEAI_HOST']` w/ fallback to `https://api.voyageai.com`
     # @param version [String] optional - defaults to `ENV['DEFAULT_VERSION']` w/ fallback to `v1`
     # @param logger [Logger] optional
     # @param timeout [Integer] optional
