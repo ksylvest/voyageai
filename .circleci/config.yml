@@ -1,21 +1,8 @@
 version: 2.1
 
-commands:
-  codeclimate:
-    steps:
-      - run: |
-          if [ -n "$CC_TEST_REPORTER_ID" ] && [ -n "$CC_TEST_REPORTER_VERSION" ]; then
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-$CC_TEST_REPORTER_VERSION > ./cc
-            chmod +x ./cc
-            ./cc format-coverage -t simplecov coverage/coverage.json
-            ./cc upload-coverage
-            rm ./cc
-          else
-            echo "[SKIPPING] codeclimate"
-          fi
-
 orbs:
   ruby: circleci/ruby@2.5.0
+  qlty: qltysh/qlty-orb@0.0.11
 
 executors:
   default:
@@ -34,6 +21,10 @@ jobs:
       - checkout
       - ruby/install-deps
       - run: bundle exec yard doc
+      - store_artifacts:
+          path: doc
+          destination: doc
+
   rspec:
     parameters:
       ruby-version:
@@ -46,13 +37,17 @@ jobs:
       - checkout
       - ruby/install-deps
       - ruby/rspec-test
-      - codeclimate
+      - store_artifacts:
+          path: doc
+          destination: doc
+
   rubocop:
     executor: default
     steps:
       - checkout
       - ruby/install-deps
       - ruby/rubocop-check
+
   release:
     executor: default
     steps:
