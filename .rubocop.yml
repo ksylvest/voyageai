@@ -31,3 +31,6 @@ Style/TrailingCommaInHashLiteral:
 RSpec/SpecFilePathFormat:
   CustomTransform:
     VoyageAI: voyageai
+
+RSpec/MultipleExpectations:
+  Enabled: false

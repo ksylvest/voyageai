@@ -10,14 +10,20 @@ RSpec.describe VoyageAI::Instrumentation do
   let(:status) { instance_double(HTTP::Response::Status, code: 200, reason: "OK") }
 
   describe "#instrument" do
-    subject(:instrument) { instrumentation.instrument("Error", error: StandardError.new("unknown")) }
-
-    context "with an error" do
-      it "logs the error" do
-        allow(logger).to receive(:error)
-        instrument
-        expect(logger).to have_received(:error).with("Error: unknown")
+    subject(:instrument) do
+      allow(logger).to receive(:info)
+      payload = {}
+      payload[:request] = request
+      instrumentation.instrument("request.http", payload) do
+        payload[:response] = response
       end
+    end
+
+    it "calls start / yields / calls finish" do
+      allow(logger).to receive(:info)
+      instrument
+      expect(logger).to have_received(:info).with("POST /embed")
+      expect(logger).to have_received(:info).with("200 OK")
     end
   end
 

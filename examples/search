@@ -2,9 +2,16 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
+require "logger"
 require "voyageai"
 
 Entry = Data.define(:document, :embedding)
+
+LOGGER = Logger.new($stdout)
+
+VoyageAI.configure do |config|
+  config.logger = LOGGER
+end
 
 VOYAGEAI = VoyageAI::Client.new
 
