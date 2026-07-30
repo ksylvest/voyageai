@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  ruby: circleci/ruby@2.5.0
+  ruby: circleci/ruby@3.0.0
   qlty: qltysh/qlty-orb@0.0.11
 
 executors:
@@ -64,6 +64,7 @@ workflows:
           matrix:
             parameters:
               ruby-version:
+                - "4.0.6"
                 - "3.4.2"
                 - "3.3.7"
                 - "3.2.7"
